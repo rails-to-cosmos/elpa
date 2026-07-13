@@ -1,0 +1,2 @@
+(table-view :fetcher github :repo "rails-to-cosmos/table-view"
+            :files ("table-view.el"))

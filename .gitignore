@@ -1,0 +1,10 @@
+/.working/
+/.eask/
+*.elc
+
+# Emacs scratch
+*~
+\#*\#
+.\#*
+
+.llm/

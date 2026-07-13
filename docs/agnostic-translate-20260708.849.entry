@@ -1,0 +1,9 @@
+(agnostic-translate
+ . [(20260708 849) ((emacs (28 1)) (table-view (0 1)))
+    "Multi-language translation" tar
+    ((:url . "https://github.com/rails-to-cosmos/agnostic-translate")
+     (:commit . "ad1af4f19db13acda2becd670b86bbcc10f0abe5")
+     (:revdesc . "ad1af4f19db1") (:keywords "convenience" "i18n")
+     (:authors ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
+     (:maintainers ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
+     (:maintainer "Dmitry Akatov" . "dmitry.akatov@protonmail.com"))])

@@ -1,0 +1,3 @@
+(org-glance :fetcher github :repo "rails-to-cosmos/org-glance"
+            :branch "metadata-migration"
+            :files ("*.el" "src/*.el" "src/data/*.el" "src/view/*.el"))

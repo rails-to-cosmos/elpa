@@ -1,4 +1,4 @@
-.PHONY: build update publish serve clean squash-history
+.PHONY: build update publish serve clean squash-history force-push
 
 MSG ?= History squashed
 
@@ -28,4 +28,7 @@ squash-history: ## Collapse ALL history into one commit (MSG="first commit"); fo
 	git branch -D main
 	git branch -m main
 	@echo "Done. History collapsed to single commit on 'main'."
-	@echo "Push with: git push --force-with-lease origin main"
+	@echo "Push with: make force-push"
+
+force-push: ## Force-push local main over remote history (--force-with-lease)
+	git push --force-with-lease origin main

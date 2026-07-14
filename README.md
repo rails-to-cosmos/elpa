@@ -2,6 +2,8 @@
 
 My personal [ELPA](https://www.gnu.org/software/emacs/manual/html_node/emacs/Packages.html) archive.
 
+Archive: <https://rails-to-cosmos.github.io/elpa/>
+
 ## Use it
 
 ```elisp

@@ -1,6 +1,6 @@
 
 Drive the `claude' CLI (https://docs.anthropic.com/en/docs/claude-cli)
-from Emacs.  Each project gets a dedicated `*claude:PROJECT*' vterm; a
+from Emacs.  Each project gets a dedicated `*llm:PROJECT*' vterm; a
 multi-line prompt buffer with @file completion feeds it, and a throwaway
 "bubble" streams a `claude -p' reply inline without disturbing the main
 session.  `agnostic-llm-show-last-response' renders the latest assistant
@@ -16,3 +16,6 @@ back to Claude to resolve.
 Requires the `claude' CLI on PATH.  Binds no global keys itself — bind the
 entry points (`agnostic-llm', `agnostic-llm-menu', `agnostic-llm-prompt',
 ...) from your own configuration.
+
+`claude' is the first backend.  The roadmap for driving other agentic
+CLIs from the same UX lives in docs/multi-backend-design.org.

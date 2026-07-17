@@ -3,6 +3,7 @@
   (danneskjold-theme :url "https://github.com/rails-to-cosmos/danneskjold-theme")
   (darr :url "https://github.com/rails-to-cosmos/darr")
   (org-glance :url "https://github.com/rails-to-cosmos/org-glance" :branch "metadata-migration")
+  (session-buffer-cycle :url "https://github.com/rails-to-cosmos/session-buffer-cycle")
   (table-view :url "https://github.com/rails-to-cosmos/table-view")
   (table-view-native :url "https://github.com/rails-to-cosmos/table-view"))
  :version 1 :default-vc Git)

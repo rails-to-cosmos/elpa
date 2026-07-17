@@ -1,0 +1,9 @@
+(session-buffer-cycle
+ . [(20260717 909) ((emacs (28 1)))
+    "Cycle per-project session buffers in a window" tar
+    ((:url . "https://github.com/rails-to-cosmos/session-buffer-cycle")
+     (:commit . "b1493f1145e7bb2176392f49485cc41734b9f951")
+     (:revdesc . "b1493f1145e7") (:keywords "convenience" "tools")
+     (:authors ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
+     (:maintainers ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
+     (:maintainer "Dmitry Akatov" . "dmitry.akatov@protonmail.com"))])

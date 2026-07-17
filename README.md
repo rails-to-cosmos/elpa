@@ -30,6 +30,7 @@ With `use-package`:
 | `agnostic-translate` | [rails-to-cosmos/agnostic-translate](https://github.com/rails-to-cosmos/agnostic-translate) |
 | `darr`               | [rails-to-cosmos/darr](https://github.com/rails-to-cosmos/darr)                             |
 | `danneskjold-theme`  | [rails-to-cosmos/danneskjold-theme](https://github.com/rails-to-cosmos/danneskjold-theme)   |
+| `session-buffer-cycle` | [rails-to-cosmos/session-buffer-cycle](https://github.com/rails-to-cosmos/session-buffer-cycle) |
 
 ## How it works
 

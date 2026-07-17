@@ -1,0 +1,2 @@
+(session-buffer-cycle :fetcher github :repo "rails-to-cosmos/session-buffer-cycle"
+                      :files (:defaults))

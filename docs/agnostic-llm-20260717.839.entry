@@ -1,10 +1,10 @@
 (agnostic-llm
- . [(20260715 1640)
+ . [(20260717 839)
     ((emacs (28 1)) (transient (0 4 0)) (vterm (0 0 2)))
     "Agentic CLI integration" tar
     ((:url . "https://github.com/rails-to-cosmos/agnostic-llm")
-     (:commit . "d08fbdf7f9a65a4d65a04206fbddd643e5781ba6")
-     (:revdesc . "d08fbdf7f9a6") (:keywords "convenience" "tools")
+     (:commit . "3f4f78bb3c67c6437efa2f6ed2d043bf16153c05")
+     (:revdesc . "3f4f78bb3c67") (:keywords "convenience" "tools")
      (:authors ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
      (:maintainers ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
      (:maintainer "Dmitry Akatov" . "dmitry.akatov@protonmail.com"))])

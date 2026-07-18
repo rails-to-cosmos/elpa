@@ -6,7 +6,7 @@ build: ## Build the archive into docs/
 	eask install-deps --dev
 	eask exec emacs --batch -l build.el
 
-update: ## Re-fetch latest commits for every recipe and rebuild
+upgrade: ## Re-fetch latest commits for every recipe and rebuild
 	rm -rf .working
 	$(MAKE) build
 

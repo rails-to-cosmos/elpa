@@ -10,7 +10,7 @@ upgrade: ## Re-fetch latest commits for every recipe and rebuild
 	rm -rf .working
 	$(MAKE) build
 
-publish: build ## Build, then commit docs/ and push to GitHub Pages
+publish: build
 	git add docs
 	git commit -m "Update ELPA archive"
 	git push

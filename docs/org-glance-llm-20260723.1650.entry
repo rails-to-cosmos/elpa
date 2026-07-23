@@ -1,0 +1,11 @@
+(org-glance-llm
+ . [(20260723 1650)
+    ((emacs (29 1)) (org-glance (1 24)) (agnostic-llm (0))
+     (table-view (0)))
+    "LLM sessions for org-glance headlines" tar
+    ((:url . "https://github.com/rails-to-cosmos/org-glance-llm")
+     (:commit . "93bfb749a717fdb4f2f9646e2f09416d2c33b628")
+     (:revdesc . "93bfb749a717") (:keywords "convenience" "outlines")
+     (:authors ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
+     (:maintainers ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
+     (:maintainer "Dmitry Akatov" . "dmitry.akatov@protonmail.com"))])

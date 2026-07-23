@@ -1,0 +1,2 @@
+(org-glance-llm :fetcher github :repo "rails-to-cosmos/org-glance-llm"
+                :files (:defaults))

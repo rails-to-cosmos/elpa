@@ -35,6 +35,7 @@ Keybindings in table-view-mode:
         off a column, cycle through every column and direction
   C-u ^ — add the column at point as a secondary (tie-breaker) sort key;
           a following run of `^' then toggles that key's direction
+  ?   — toggle the multiline action legend (below the subtitle)
   m   — toggle mark on the current row;  u — unmark it
   M   — mark all visible rows;  U — unmark all
   /   — narrow to the marked rows, or filter by substring when none marked

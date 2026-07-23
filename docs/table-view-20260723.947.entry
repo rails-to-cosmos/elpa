@@ -1,9 +1,9 @@
 (table-view
- . [(20260719 825) ((emacs (28 1)))
+ . [(20260723 947) ((emacs (28 1)))
     "Declarative, backend-agnostic table view" tar
     ((:url . "https://github.com/rails-to-cosmos/table-view")
-     (:commit . "33bd04ce7d357645f2edaad178b0dd26b656f08d")
-     (:revdesc . "33bd04ce7d35")
+     (:commit . "a550bf3a50c9aa817855183c7491232767adc10b")
+     (:revdesc . "a550bf3a50c9")
      (:keywords "convenience" "data" "tools")
      (:authors ("Dmitry Akatov" . "akatovda@gmail.com"))
      (:maintainers ("Dmitry Akatov" . "akatovda@gmail.com"))

@@ -1,11 +1,11 @@
 (org-glance
- . [(20260721 1429)
+ . [(20260723 905)
     ((emacs (29 1)) (org (0)) (aes (0)) (dash (0)) (f (0)) (s (0))
      (transient (0)) (table-view (0)) (agnostic-llm (0)))
     "Org-mode mindmap" tar
     ((:url . "https://github.com/rails-to-cosmos/org-glance")
-     (:commit . "d8bfbeee10de606dfcc0e61035ead976f69a15b1")
-     (:revdesc . "d8bfbeee10de")
+     (:commit . "66c57eef80fff70c5f68240196bff91e13636cf0")
+     (:revdesc . "66c57eef80ff")
      (:keywords "org-mode" "graph" "mindmap")
      (:authors ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
      (:maintainers ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))

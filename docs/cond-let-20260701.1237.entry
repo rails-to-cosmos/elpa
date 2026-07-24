@@ -1,0 +1,12 @@
+(cond-let
+ . [(20260701 1237) ((emacs (28 1)))
+    "Additional and improved binding conditionals" tar
+    ((:url . "https://github.com/tarsius/cond-let")
+     (:commit . "c48600dfab6372670225f046cace263700c78eab")
+     (:revdesc . "c48600dfab63") (:keywords "extensions")
+     (:authors
+      ("Jonas Bernoulli" . "emacs.cond-let@jonas.bernoulli.dev"))
+     (:maintainers
+      ("Jonas Bernoulli" . "emacs.cond-let@jonas.bernoulli.dev"))
+     (:maintainer "Jonas Bernoulli"
+		  . "emacs.cond-let@jonas.bernoulli.dev"))])

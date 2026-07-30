@@ -1,9 +1,10 @@
-(table-view-native
- . [(20260723 947) ((emacs (28 1)) (table-view (0 5 0)))
-    "Native (Rust) data backend for table-view" tar
+(table-view
+ . [(20260730 1500) ((emacs (28 1)))
+    "Declarative, backend-agnostic table view" tar
     ((:url . "https://github.com/rails-to-cosmos/table-view")
-     (:commit . "a550bf3a50c9aa817855183c7491232767adc10b")
-     (:revdesc . "a550bf3a50c9")
+     (:commit . "d3d2d51e23a6bc4253cc753d0b027580a9b2062d")
+     (:revdesc . "d3d2d51e23a6")
+     (:keywords "convenience" "data" "tools")
      (:authors ("Dmitry Akatov" . "akatovda@gmail.com"))
      (:maintainers ("Dmitry Akatov" . "akatovda@gmail.com"))
      (:maintainer "Dmitry Akatov" . "akatovda@gmail.com"))])

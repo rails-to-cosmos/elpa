@@ -1,4 +1,4 @@
-A tiny, backend-agnostic core that renders a declarative table
+A tiny, producer-agnostic core that renders a declarative table
 description -- columns, actions, default sort -- and dispatches keys to
 consumer-registered command handlers.
 
@@ -26,7 +26,7 @@ See examples/ for runnable demos:
   sort-methods.el  — per-column sort methods (values / compare) + default sort
   delete.el        — row deletion gated on a custom pre-delete step
   bulk.el          — marking (m), narrowing (/), and bulk actions (bulk: t)
-  paginate.el      — server-side pagination over a fake backend (page-fn)
+  paginate.el      — server-side pagination over a fake producer (page-fn)
   org-links.el     — Org links in cells, followed by C-c C-o or mouse
 
 Keybindings in table-view-mode:

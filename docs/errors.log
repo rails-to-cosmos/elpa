@@ -1,0 +1,2 @@
+2026-09-02T11:26:52+0000  table-view                 Command ‘git fetch -f --tags --prune --prune-tags origin’ exited with non-zero exit-code: 128
+2026-09-02T11:26:52+0000  table-view-native          Command ‘git fetch -f --tags --prune --prune-tags origin’ exited with non-zero exit-code: 128

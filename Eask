@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (package "rails-to-cosmos-elpa" "0.1.0"
          "Personal ELPA archive for rails-to-cosmos Emacs packages")
 

@@ -1,9 +1,9 @@
 (darr
- . [(20260612 916) ((emacs (28 1)))
+ . [(20260903 1836) ((emacs (28 1)))
     "Visual layout editor for displays" tar
     ((:url . "https://github.com/rails-to-cosmos/darr")
-     (:commit . "3f81bc15887a2fc09f60e0ace5ed7de67e3dd996")
-     (:revdesc . "3f81bc15887a") (:keywords "hardware" "multimedia")
+     (:commit . "3d26ec9d6e296b75111b4dd8a064223a8d99a586")
+     (:revdesc . "3d26ec9d6e29") (:keywords "hardware" "multimedia")
      (:authors ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
      (:maintainers ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
      (:maintainer "Dmitry Akatov" . "dmitry.akatov@protonmail.com"))])

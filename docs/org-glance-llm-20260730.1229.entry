@@ -1,20 +1,11 @@
-(org-glance-llm .
-		[(20260730 1229)
-		 ((emacs
-		   (29 1))
-		  (org-glance
-		   (1 24))
-		  (agnostic-llm
-		   (0))
-		  (table-view
-		   (0)))
-		 "LLM sessions for org-glance headlines" tar
-		 ((:url . "https://github.com/rails-to-cosmos/org-glance-llm")
-		  (:commit . "87afd23af7d41155d32d59502672cf9002e09da2")
-		  (:revdesc . "87afd23af7d4")
-		  (:keywords "convenience" "outlines")
-		  (:authors
-		   ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
-		  (:maintainers
-		   ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
-		  (:maintainer "Dmitry Akatov" . "dmitry.akatov@protonmail.com"))])
+(org-glance-llm
+ . [(20260730 1229)
+    ((emacs (29 1)) (org-glance (1 24)) (agnostic-llm (0))
+     (table-view (0)))
+    "LLM sessions for org-glance headlines" tar
+    ((:url . "https://github.com/rails-to-cosmos/org-glance-llm")
+     (:commit . "87afd23af7d41155d32d59502672cf9002e09da2")
+     (:revdesc . "87afd23af7d4") (:keywords "convenience" "outlines")
+     (:authors ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
+     (:maintainers ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
+     (:maintainer "Dmitry Akatov" . "dmitry.akatov@protonmail.com"))])

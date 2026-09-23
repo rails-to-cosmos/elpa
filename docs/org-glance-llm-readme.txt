@@ -5,9 +5,10 @@ vterm.
 
 The `l' action: pick a headline and open the `agnostic-llm' menu pinned to
 the headline's content-addressable data directory, so the CLI's per-directory
-context accumulates there.  The `*llm:…*' session buffer is named for the
-headline's title (see `org-glance-llm--label'); the data dir's hash is the
-fallback.
+context accumulates there.  The menu selects the provider first; its model
+choices then come from that provider's catalog.  The `*llm:…*' session
+buffer is named for the headline's title (see `org-glance-llm--label'); the
+data dir's hash is the fallback.
 
 A headline's session is identified by that data DIR -- a full-hash path
 unique to the headline, kept as the session buffer's `default-directory'.

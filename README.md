@@ -44,6 +44,11 @@ An ELPA archive is just static files over HTTPS:
 GitHub Pages serves the committed `docs/` folder from the `main` branch; rebuild
 and publish with `make publish`.
 
+The project also owns its Dagster definition in
+[`bin/dagster-app.py`](bin/dagster-app.py). Its sensor compares upstream recipe
+heads with the last successfully published snapshot. Failed publications remain
+pending and are retried on the next sensor tick.
+
 Versions are **snapshots** (`YYYYMMDD.HHMM` from each source repo's latest
 commit); set `package-build-stable` to `t` in `build.el` to build stable
 versions from git tags instead.
@@ -66,4 +71,12 @@ make build     # build the archive -> docs/
 make update    # re-fetch latest commits, then rebuild
 make serve     # build + serve at http://localhost:8080
 make publish   # rebuild, commit docs/, and push to Pages
+```
+
+The Dagster host supplies `ELPA_DIR`, `DAGSTER_HOME`, the build toolchain, and a
+write-capable deploy key. The sensor stays idle with an actionable reason when
+that key is unavailable. Validate the upstream scan without publishing with:
+
+```sh
+./bin/dagster-app.py
 ```

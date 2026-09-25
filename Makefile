@@ -1,4 +1,4 @@
-.PHONY: build update publish serve clean squash-history force-push
+.PHONY: build update upgrade publish serve clean squash-history force-push
 
 MSG ?= History squashed
 
@@ -10,9 +10,11 @@ upgrade: ## Re-fetch latest commits for every recipe and rebuild
 	rm -rf .working
 	$(MAKE) build
 
-publish: build
+update: upgrade
+
+publish: upgrade
 	git add docs
-	git commit -m "Update ELPA archive"
+	git diff --cached --quiet || git commit -m "Update ELPA archive"
 	git push
 
 serve: build ## Build, then serve locally at http://localhost:8080

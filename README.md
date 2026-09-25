@@ -47,7 +47,9 @@ and publish with `make publish`.
 The project also owns its Dagster definition in
 [`bin/dagster-app.py`](bin/dagster-app.py). Its sensor compares upstream recipe
 heads with the last successfully published snapshot. Failed publications remain
-pending and are retried on the next sensor tick.
+pending and are retried on the next sensor tick. After a successful push it writes
+an event to `GLANCE_NOTIFICATION_OUTBOX`, when configured, for durable delivery to
+the Glance notification feed.
 
 Versions are **snapshots** (`YYYYMMDD.HHMM` from each source repo's latest
 commit); set `package-build-stable` to `t` in `build.el` to build stable

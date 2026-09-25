@@ -13,8 +13,10 @@ import os
 import re
 import shutil
 import subprocess
+import time
 from datetime import UTC, datetime
 from pathlib import Path
+from uuid import NAMESPACE_URL, UUID, uuid5
 
 from dagster import (
     DefaultSensorStatus,
@@ -119,6 +121,66 @@ def _record_success(heads: dict[str, str], fingerprint: str) -> None:
     temporary.replace(path)
 
 
+def _notification_id(run_id: str) -> str:
+    """Return a Glance-compatible UUID for a Dagster run identifier."""
+    try:
+        return str(UUID(run_id))
+    except ValueError:
+        return str(uuid5(NAMESPACE_URL, f"elpa-publish:{run_id}"))
+
+
+def _enqueue_publish_notification(
+    context: OpExecutionContext,
+    heads: dict[str, str],
+    fingerprint: str,
+) -> None:
+    """Durably enqueue a successful publication for the Glance notification feed."""
+    configured = os.environ.get("GLANCE_NOTIFICATION_OUTBOX")
+    if not configured:
+        context.log.info("GLANCE_NOTIFICATION_OUTBOX is unset; publication notification skipped")
+        return
+
+    outbox = Path(configured).expanduser()
+    event_id = _notification_id(context.run_id)
+    captured_at = datetime.now(UTC).isoformat()
+    event = {
+        "version": 1,
+        "eventId": event_id,
+        "capturedAt": captured_at,
+        "notification": {
+            "app": "elpa",
+            "summary": "ELPA published successfully",
+            "body": f"Published {len(heads)} recipe heads; archive fingerprint {fingerprint}.",
+            "urgency": "NORMAL",
+            "category": "deployment",
+            "desktopEntry": "",
+            "dunstId": "",
+            "stackTag": "elpa-publish",
+            "progress": "",
+            "urls": "https://rails-to-cosmos.github.io/elpa/",
+        },
+    }
+    temporary = outbox / f".{event_id}.{os.getpid()}.tmp"
+    destination = outbox / f"{time.time_ns()}-{event_id}.json"
+    try:
+        outbox.mkdir(parents=True, exist_ok=True)
+        with temporary.open("x", encoding="utf-8") as stream:
+            json.dump(event, stream, sort_keys=True)
+            stream.write("\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        temporary.replace(destination)
+        directory = os.open(outbox, os.O_RDONLY)
+        try:
+            os.fsync(directory)
+        finally:
+            os.close(directory)
+        context.log.info("queued Glance notification %s", event_id)
+    except OSError as error:
+        temporary.unlink(missing_ok=True)
+        context.log.warning("publication succeeded but notification enqueue failed: %s", error)
+
+
 def _run(context: OpExecutionContext, command: list[str], timeout: int) -> None:
     result = subprocess.run(
         command,
@@ -147,6 +209,7 @@ def publish(context: OpExecutionContext) -> None:
     _run(context, ["git", "pull", "--ff-only", "--autostash"], PULL_TIMEOUT)
     _run(context, ["make", "publish"], PUBLISH_TIMEOUT)
     _record_success(heads, fingerprint)
+    _enqueue_publish_notification(context, heads, fingerprint)
 
 
 @job

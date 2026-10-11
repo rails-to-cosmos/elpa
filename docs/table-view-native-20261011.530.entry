@@ -1,9 +1,9 @@
 (table-view-native
- . [(20261005 1320) ((emacs (28 1)) (table-view (0 7 0)))
+ . [(20261011 530) ((emacs (28 1)) (table-view (0 10 1)))
     "Native (Rust) accelerator for table-view" tar
     ((:url . "https://github.com/rails-to-cosmos/table-view")
-     (:commit . "680a6c0909ce7e2d05f0327b8b854cce1cb6cccc")
-     (:revdesc . "680a6c0909ce")
+     (:commit . "d976cf032594703124b7c7e82406dad228136d84")
+     (:revdesc . "d976cf032594")
      (:authors ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
      (:maintainers ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))
      (:maintainer "Dmitry Akatov" . "dmitry.akatov@protonmail.com"))])

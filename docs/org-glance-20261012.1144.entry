@@ -1,11 +1,11 @@
 (org-glance
- . [(20261012 1111)
+ . [(20261012 1144)
     ((emacs (29 1)) (org (0)) (aes (0)) (dash (0)) (f (0)) (s (0))
      (transient (0)) (table-view (0)))
     "Org-mode projections" tar
     ((:url . "https://github.com/rails-to-cosmos/org-glance")
-     (:commit . "f8325e70f1cd0884bff1657645de6c2ecde284a5")
-     (:revdesc . "f8325e70f1cd")
+     (:commit . "89cf5853c9aa9edddbc56d97bee4abb11a6b520f")
+     (:revdesc . "89cf5853c9aa")
      (:keywords "org-mode" "outlines" "data" "database" "store"
 		"projections")
      (:authors ("Dmitry Akatov" . "dmitry.akatov@protonmail.com"))

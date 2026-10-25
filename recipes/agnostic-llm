@@ -1,2 +1,2 @@
 (agnostic-llm :fetcher github :repo "rails-to-cosmos/agnostic-llm"
-              :files (:defaults))
+ :branch "master" :make-targets ("package"))

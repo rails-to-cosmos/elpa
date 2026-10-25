@@ -1,2 +1,2 @@
 (table-view :fetcher github :repo "rails-to-cosmos/table-view"
-            :files ("table-view.el"))
+ :branch "master" :make-targets ("package"))

@@ -29,7 +29,35 @@
 
 (make-directory package-build-archive-dir t)
 
-(package-build-all)
+(defun rce-run (program &rest args)
+  (unless (zerop (apply #'call-process program nil t t args))
+    (error "%s failed: %s" program (mapconcat #'identity args " "))))
+
+(defun rce-build-component (recipe)
+  (let* ((name (symbol-name (car recipe)))
+         (spec (cdr recipe))
+         (repo (plist-get spec :repo))
+         (branch (plist-get spec :branch))
+         (checkout (expand-file-name (concat "components/" repo) package-build-working-dir))
+         (emacs (expand-file-name invocation-name invocation-directory)))
+    (unless (file-directory-p (expand-file-name ".git" checkout))
+      (make-directory (file-name-directory checkout) t)
+      (rce-run "git" "clone" "--branch" branch (concat "https://github.com/" repo ".git") checkout))
+    (rce-run "git" "-C" checkout "fetch" "origin" branch)
+    (rce-run "git" "-C" checkout "checkout" "--detach" (concat "origin/" branch))
+    (rce-run "python3" (expand-file-name "bin/packages.py" rce/root)
+             "build" "--source" checkout "--package" name
+             "--output" package-build-archive-dir "--emacs" emacs "--publish")))
+
+;; Component recipes share their build with install-emacs; other recipes keep snapshots.
+(dolist (name (package-recipe-recipes))
+  (let ((recipe (with-temp-buffer
+                  (insert-file-contents (expand-file-name name package-build-recipes-dir))
+                  (read (current-buffer)))))
+    (if (member "package" (plist-get (cdr recipe) :make-targets))
+        (rce-build-component recipe)
+      (package-build-archive name))))
+(package-build-dump-archive-contents)
 
 ;; --- GitHub Pages niceties -------------------------------------------------
 

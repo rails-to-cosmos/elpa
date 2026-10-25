@@ -1,2 +1,2 @@
 (agnostic-translate :fetcher github :repo "rails-to-cosmos/agnostic-translate"
-                    :files (:defaults))
+ :branch "master" :make-targets ("package"))

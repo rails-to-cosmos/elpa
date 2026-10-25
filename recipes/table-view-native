@@ -1,2 +1,2 @@
 (table-view-native :fetcher github :repo "rails-to-cosmos/table-view"
-                   :files ("table-view-native.el" "native"))
+ :branch "master" :make-targets ("package"))

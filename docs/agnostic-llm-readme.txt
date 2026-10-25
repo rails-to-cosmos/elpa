@@ -1,6 +1,6 @@
 
-Drive an agentic CLI from Emacs.  Each project gets a dedicated
-`*llm:PROJECT*' vterm; a multi-line prompt buffer with @file completion
+Drive an agentic CLI from Emacs.  Each project gets a default
+`*llm:PROJECT*' vterm plus optional named sessions; a prompt buffer
 feeds it, and a throwaway "bubble" streams a one-shot reply inline
 without disturbing the main session.  `agnostic-llm-show-last-response'
 renders the latest assistant turn from the session JSONL into a read-only

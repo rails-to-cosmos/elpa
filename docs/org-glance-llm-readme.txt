@@ -10,8 +10,6 @@ choices then come from that provider's catalog.  The `*llm:…*' session
 buffer is named for the headline's title (see `org-glance-llm--label'); the
 data dir's hash is the fallback.
 
-A headline's session is identified by that data DIR -- a full-hash path
-unique to the headline, kept as the session buffer's `default-directory'.
-Reopening the headline switches to the live buffer, so one headline keeps
-one session; the title label is cosmetic, so two same-titled headlines
-still get separate sessions.
+A session is identified by provider, data DIR, and canonical name.  Its data
+dir remains the buffer's `default-directory'; named conversations coexist
+under one headline.

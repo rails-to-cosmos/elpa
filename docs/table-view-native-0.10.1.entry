@@ -1,0 +1,1 @@
+(table-view-native . [(0 10 1) ((emacs (28 1)) (table-view (0 10 1))) "Native (Rust) accelerator for table-view" tar])

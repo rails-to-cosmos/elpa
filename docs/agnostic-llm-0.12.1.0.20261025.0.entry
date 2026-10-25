@@ -1,0 +1,1 @@
+(agnostic-llm . [(0 12 1 0 20261025 0) ((emacs (28 1)) (transient (0 4 0)) (vterm (0 0 2))) "Agentic CLI integration" tar])

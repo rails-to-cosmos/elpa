@@ -66,6 +66,20 @@ class PackagesTest(unittest.TestCase):
         self.assertEqual(self.snapshot(), before)
         self.assertFalse((self.profile / "init.el").exists())
 
+    def test_autoload_macro_can_load_new_package_during_install(self):
+        with (self.source / "sample.el").open("a") as stream:
+            stream.write(
+                "\n(defmacro sample-define-command (name)\n"
+                "  (declare (autoload-macro expand))\n"
+                "  `(defun ,name () (interactive)))\n"
+                ";;;###autoload\n"
+                "(sample-define-command sample-command)\n"
+            )
+        self.commit()
+        self.install(self.build())
+        autoloads = (self.profile / "elpa/sample-1.0/sample-autoloads.el").read_text()
+        self.assertIn("(autoload 'sample-command", autoloads)
+
     def test_timestamp_migration_preserves_backup_and_activates_release(self):
         self.write_package("20261001.1234")
         self.commit()

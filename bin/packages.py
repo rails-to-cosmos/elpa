@@ -30,7 +30,8 @@ def lisp(action, request, emacs):
     expression = (f'(condition-case err (rce-command "{action}") '
                   '(error (message "%s" (error-message-string err)) (kill-emacs 1)))')
     result = subprocess.run([emacs_binary(emacs), "--batch", "-Q", "-l", str(ROOT / "package-tools.el"),
-                             "--eval", expression], check=True, stdout=subprocess.PIPE, text=True,
+                             "--eval", expression], check=True, stdin=subprocess.DEVNULL,
+                            stdout=subprocess.PIPE, text=True,
                             env={**os.environ, "RCE_REQUEST": json.dumps(request)})
     return json.loads(result.stdout)
 

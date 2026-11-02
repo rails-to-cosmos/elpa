@@ -12,7 +12,9 @@ import json
 import os
 import re
 import shutil
+import signal
 import subprocess
+import tempfile
 import time
 from datetime import UTC, datetime
 from pathlib import Path
@@ -37,6 +39,7 @@ RECIPES = ELPA_DIR / "recipes"
 LS_REMOTE_TIMEOUT = 20
 PULL_TIMEOUT = 120
 PUBLISH_TIMEOUT = 1800
+TERMINATE_GRACE = 5
 
 _REPO = re.compile(r':repo\s+"([^"]+)"')
 _BRANCH = re.compile(r':branch\s+"([^"]+)"')
@@ -181,17 +184,67 @@ def _enqueue_publish_notification(
         context.log.warning("publication succeeded but notification enqueue failed: %s", error)
 
 
+def _publish_timeout() -> int:
+    value = os.environ.get("ELPA_PUBLISH_TIMEOUT_SECONDS", str(PUBLISH_TIMEOUT))
+    try:
+        seconds = int(value)
+    except ValueError:
+        seconds = 0
+    if seconds <= 0:
+        raise ValueError("ELPA_PUBLISH_TIMEOUT_SECONDS must be a positive integer")
+    return seconds
+
+
+def _stop_process_group(process: subprocess.Popen) -> None:
+    def send(sig):
+        try:
+            os.killpg(process.pid, sig)
+        except ProcessLookupError:
+            pass
+
+    send(signal.SIGTERM)
+    try:
+        process.wait(timeout=TERMINATE_GRACE)
+    except subprocess.TimeoutExpired:
+        pass
+    finally:
+        # Children may outlive a make process that exits on SIGTERM.
+        send(signal.SIGKILL)
+        process.wait()
+
+
 def _run(context: OpExecutionContext, command: list[str], timeout: int) -> None:
-    result = subprocess.run(
-        command,
-        cwd=ELPA_DIR,
-        capture_output=True,
-        text=True,
-        timeout=timeout,
-    )
-    context.log.info("%s rc=%s\n%s", " ".join(command), result.returncode, (result.stdout + result.stderr)[-6000:])
-    if result.returncode:
-        raise RuntimeError(f"{' '.join(command)} failed in {ELPA_DIR} (rc={result.returncode})")
+    log_dir = _success_file().parent / "elpa-publish-logs" / _notification_id(context.run_id)
+    log_dir.mkdir(parents=True, exist_ok=True)
+    started = time.monotonic()
+    expired = None
+    with tempfile.NamedTemporaryFile(dir=log_dir, prefix="command-", suffix=".log", delete=False) as log:
+        path = Path(log.name)
+        context.log.info("Running %s (timeout %ss); full output: %s", " ".join(command), timeout, path)
+        process = subprocess.Popen(
+            command, cwd=ELPA_DIR, stdout=log, stderr=subprocess.STDOUT,
+            stdin=subprocess.DEVNULL, start_new_session=True,
+        )
+        try:
+            process.wait(timeout=timeout)
+        except subprocess.TimeoutExpired as error:
+            expired = error
+            _stop_process_group(process)
+        except BaseException:
+            _stop_process_group(process)
+            raise
+    with path.open("rb") as stream:
+        stream.seek(max(0, path.stat().st_size - 6000))
+        tail = stream.read().decode("utf-8", errors="replace")
+    elapsed = time.monotonic() - started
+    summary = (f"{' '.join(command)} in {ELPA_DIR}: "
+               + (f"timed out after {timeout}s" if expired else f"rc={process.returncode}")
+               + f" (elapsed {elapsed:.1f}s). Full output: {path}\n{tail}")
+    context.log.info("%s", summary)
+    if expired:
+        raise RuntimeError(summary) from expired
+    if process.returncode:
+        raise RuntimeError(summary)
 
 
 @op
@@ -205,9 +258,10 @@ def publish(context: OpExecutionContext) -> None:
     if problem := _deployment_problem():
         raise RuntimeError(problem)
 
+    timeout = _publish_timeout()
     heads, fingerprint = _state()
     _run(context, ["git", "pull", "--ff-only", "--autostash"], PULL_TIMEOUT)
-    _run(context, ["make", "publish"], PUBLISH_TIMEOUT)
+    _run(context, ["make", "publish"], timeout)
     _record_success(heads, fingerprint)
     _enqueue_publish_notification(context, heads, fingerprint)
 

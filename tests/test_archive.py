@@ -69,6 +69,7 @@ class ArchiveTest(unittest.TestCase):
             commit()
             result = subprocess.run(invocation, env=env, text=True, capture_output=True)
             self.assertNotEqual(result.returncode, 0)
+            self.assertIn("published contents changed; bump the package version", result.stderr)
             self.assertEqual(published.read_bytes(), original)
 
 

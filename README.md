@@ -53,6 +53,15 @@ pending and are retried on the next sensor tick. After a successful push it writ
 an event to `GLANCE_NOTIFICATION_OUTBOX`, when configured, for durable delivery to
 the Glance notification feed.
 
+Dagster limits publication to 1,800 seconds by default. Set
+`ELPA_PUBLISH_TIMEOUT_SECONDS` to a positive integer in the code-location
+environment to change the limit. A timeout or interrupted run terminates the
+command's process group, including build subprocesses. Ordinary build failures
+report their exit status separately from timeouts and include the output tail.
+Complete, combined stdout/stderr logs are retained under
+`DAGSTER_HOME/elpa-publish-logs/<run-id>/`; each command logs its file path when
+it starts. These diagnostic files can be pruned after investigating failed runs.
+
 Recipes declaring `:make-targets ("package")` use `bin/packages.py`. The component's
 main Lisp header owns the version and dependencies; `packages.json` maps source
 globs to package directories. Local installation and archive publication produce

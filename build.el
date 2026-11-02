@@ -30,8 +30,13 @@
 (make-directory package-build-archive-dir t)
 
 (defun rce-run (program &rest args)
-  (unless (zerop (apply #'call-process program nil t t args))
-    (error "%s failed: %s" program (mapconcat #'identity args " "))))
+  (with-temp-buffer
+    (let ((status (apply #'call-process program nil '(t t) nil args)))
+      (princ (buffer-string) 'external-debugging-output)
+      (unless (eq status 0)
+        (error "%s failed (rc=%s): %s\n%s"
+               program status (mapconcat #'identity args " ")
+               (buffer-string))))))
 
 (defun rce-build-component (recipe)
   (let* ((name (symbol-name (car recipe)))

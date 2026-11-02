@@ -7,5 +7,5 @@
  (org-glance . [(1 55 1 0 20261027 1) ((emacs (29 1)) (org (0)) (aes (0)) (dash (0)) (f (0)) (s (0)) (transient (0)) (table-view (0))) "Org-mode projections" tar])
  (org-glance-llm . [(0 5 1 0 20261025 1) ((emacs (29 1)) (org-glance (1 24)) (agnostic-llm (0 12 0 0 20261025 0)) (table-view (0))) "LLM sessions for org-glance headlines" tar])
  (session-buffer-cycle . [(20260717 909) ((emacs (28 1))) "Cycle per-project session buffers in a window" tar ((:url . "https://github.com/rails-to-cosmos/session-buffer-cycle") (:commit . "b1493f1145e7bb2176392f49485cc41734b9f951") (:revdesc . "b1493f1145e7") (:keywords "convenience" "tools") (:authors ("Dmitry Akatov" . "dmitry.akatov@protonmail.com")) (:maintainers ("Dmitry Akatov" . "dmitry.akatov@protonmail.com")) (:maintainer "Dmitry Akatov" . "dmitry.akatov@protonmail.com"))])
- (table-view . [(0 10 1) ((emacs (28 1))) "Declarative, producer-agnostic table view" tar])
- (table-view-native . [(0 10 1) ((emacs (28 1)) (table-view (0 10 1))) "Native (Rust) accelerator for table-view" tar]))
+ (table-view . [(0 11 0) ((emacs (28 1))) "Declarative, producer-agnostic table view" tar])
+ (table-view-native . [(0 11 0) ((emacs (28 1)) (table-view (0 11 0))) "Native (Rust) accelerator for table-view" tar]))

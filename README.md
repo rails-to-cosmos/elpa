@@ -49,15 +49,31 @@ and publish with `make publish`.
 The project also owns its Dagster definition in
 [`bin/dagster-app.py`](bin/dagster-app.py). Its sensor compares upstream recipe
 heads with the last successfully published snapshot. Failed publications remain
-pending and are retried on the next sensor tick. After a successful push it writes
+pending and are retried on the next sensor tick. Transient Git transport failures,
+including SSH authentication rejection and GitHub's `commit_refs` server error,
+receive up to four attempts with 5, 15, and 45 seconds between attempts.
+Build errors and diverged branches stop with an actionable message.
+
+Dagster runs `make prepare-publish` once to build and commit the archive, then
+saves the commit and source snapshot in `.git/elpa-publish-pending.json` before
+pushing. After interruption or exhausted retries, the next run resumes that
+commit without rebuilding or rescanning source repositories. A fetch verifies
+that the remote branch contains the commit before recording success; this also
+recovers a push whose success response was lost. New source changes are picked
+up on a subsequent sensor tick. A checkout lock serializes Dagster publishers;
+staged user changes are refused, and archive commits contain only `docs/`.
+Branch divergence preserves the pending record for manual reconciliation and
+never triggers a force-push. After a verified push it writes
 an event to `GLANCE_NOTIFICATION_OUTBOX`, when configured, for durable delivery to
 the Glance notification feed.
 
-Dagster limits publication to 1,800 seconds by default. Set
+Dagster limits the archive build to 1,800 seconds by default. Set
 `ELPA_PUBLISH_TIMEOUT_SECONDS` to a positive integer in the code-location
 environment to change the limit. A timeout or interrupted run terminates the
 command's process group, including build subprocesses. Ordinary build failures
-report their exit status separately from timeouts and include the output tail.
+report their exit status separately from timeouts. Dagster failures show the
+phase, concise cause, and recovery guidance; metadata includes the attempt count
+and full-log path. Detailed command output remains in the run's event log.
 Complete, combined stdout/stderr logs are retained under
 `DAGSTER_HOME/elpa-publish-logs/<run-id>/`; each command logs its file path when
 it starts. These diagnostic files can be pruned after investigating failed runs.

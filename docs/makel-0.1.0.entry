@@ -1,1 +1,0 @@
-(makel . [(0 1 0) ((emacs (29 1)) (transient (0 4))) "Makefile target picker with compilation buffers" tar])

@@ -3,7 +3,7 @@
   (cond-let :url "https://github.com/tarsius/cond-let")
   (danneskjold-theme :url "https://github.com/rails-to-cosmos/danneskjold-theme")
   (darr :url "https://github.com/rails-to-cosmos/darr")
-  (makel :url "https://github.com/rails-to-cosmos/makel" :branch "master")
+  (makeel :url "https://github.com/rails-to-cosmos/makeel" :branch "master")
   (org-glance :url "https://github.com/rails-to-cosmos/org-glance" :branch "master")
   (org-glance-llm :url "https://github.com/rails-to-cosmos/org-glance-llm" :branch "main")
   (session-buffer-cycle :url "https://github.com/rails-to-cosmos/session-buffer-cycle")

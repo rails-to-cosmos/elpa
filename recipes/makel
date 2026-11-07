@@ -1,0 +1,2 @@
+(makel :fetcher github :repo "rails-to-cosmos/makel"
+       :branch "master" :make-targets ("package"))

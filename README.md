@@ -30,6 +30,7 @@ With `use-package`:
 | `org-glance-llm`     | [rails-to-cosmos/org-glance-llm](https://github.com/rails-to-cosmos/org-glance-llm) |
 | `agnostic-llm`       | [rails-to-cosmos/agnostic-llm](https://github.com/rails-to-cosmos/agnostic-llm) |
 | `agnostic-translate` | [rails-to-cosmos/agnostic-translate](https://github.com/rails-to-cosmos/agnostic-translate) |
+| `makel` | [rails-to-cosmos/makel](https://github.com/rails-to-cosmos/makel) |
 | `darr`               | [rails-to-cosmos/darr](https://github.com/rails-to-cosmos/darr)                             |
 | `danneskjold-theme`  | [rails-to-cosmos/danneskjold-theme](https://github.com/rails-to-cosmos/danneskjold-theme)   |
 | `session-buffer-cycle` | [rails-to-cosmos/session-buffer-cycle](https://github.com/rails-to-cosmos/session-buffer-cycle) |

@@ -2,6 +2,7 @@
 """Build and install component packages from their declared release metadata."""
 
 import argparse
+import fnmatch
 import glob
 import hashlib
 import io
@@ -80,11 +81,37 @@ def artifact(package):
     return buffer.getvalue()
 
 
+def status_paths(source):
+    output = subprocess.check_output(
+        ["git", "-C", source, "status", "--porcelain", "-z", "--untracked-files=all"]
+    )
+    fields = output.split(b"\0")
+    paths = []
+    index = 0
+    while index < len(fields) and fields[index]:
+        record = fields[index].decode(errors="surrogateescape")
+        paths.append(record[3:])
+        index += 1
+        if record[:1] in ("R", "C") or record[1:2] in ("R", "C"):
+            if index < len(fields) and fields[index]:
+                paths.append(fields[index].decode(errors="surrogateescape"))
+                index += 1
+    return paths
+
+
 def clean_sources(packages):
-    for source in sorted({package["source"] for package in packages}):
-        status = subprocess.check_output(["git", "-C", source, "status", "--porcelain"], text=True)
-        if status.strip():
-            raise ValueError(f"{source}: commit changes first, or use DEV=1 for a development install")
+    by_source = {}
+    for package in packages:
+        by_source.setdefault(package["source"], {"packages.json"}).update(package["files"])
+    for source, patterns in sorted(by_source.items()):
+        dirty = [
+            path for path in status_paths(source)
+            if any(fnmatch.fnmatchcase(path, pattern) for pattern in patterns)
+        ]
+        if dirty:
+            raise ValueError(
+                f"{source}: commit changes to package inputs first, or use DEV=1 for a development install"
+            )
 
 
 def build(packages, output, dev=False, publish=False):

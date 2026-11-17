@@ -114,6 +114,16 @@ class PackagesTest(unittest.TestCase):
         self.install(built, dev=True)
         self.assertIn('"changed"', (self.profile / "elpa/sample-1.0/sample.el").read_text())
 
+    def test_unrelated_worktree_changes_do_not_require_a_development_build(self):
+        notes = self.source / "docs" / "proposal.md"
+        notes.parent.mkdir()
+        notes.write_text("local notes\n")
+        self.build()
+        definitions = self.definitions()
+        (self.source / "packages.json").write_text("[]\n")
+        with self.assertRaisesRegex(ValueError, "commit changes to package inputs"):
+            packages.clean_sources(definitions)
+
     def test_failure_after_unpack_restores_old_package(self):
         self.install(self.build())
         old = self.profile / "elpa/sample-1.0/sample.el"

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --locked --managed-python
 """Build and install component packages from their declared release metadata."""
 
 import argparse

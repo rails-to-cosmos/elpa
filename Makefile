@@ -1,4 +1,4 @@
-.PHONY: build update upgrade prepare-publish publish serve clean squash-history force-push
+.PHONY: build update upgrade prepare-publish publish serve test clean squash-history force-push
 
 MSG ?= History squashed
 
@@ -20,7 +20,10 @@ publish: prepare-publish
 	git push
 
 serve: build ## Build, then serve locally at http://localhost:8080
-	cd docs && python3 -m http.server 8080
+	uv run --locked --managed-python python -m http.server 8080 --directory docs
+
+test: ## Run the test suite
+	uv run --locked --managed-python python -m unittest discover -s tests -v
 
 clean: ## Remove build output
 	rm -rf docs .working

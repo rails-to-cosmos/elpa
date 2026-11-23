@@ -40,7 +40,7 @@ class ArchiveTest(unittest.TestCase):
             commit()
             archive = root / "archive"
             archive.mkdir()
-            for name in ("build.el", "package-tools.el"):
+            for name in ("build.el", "package-tools.el", "pyproject.toml", "uv.lock", ".python-version"):
                 shutil.copy(ROOT / name, archive / name)
             shutil.copytree(ROOT / "bin", archive / "bin")
             (archive / "recipes").mkdir()

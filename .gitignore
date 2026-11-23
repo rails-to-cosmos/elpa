@@ -1,5 +1,6 @@
 /.working/
 /.eask/
+/.venv/
 __pycache__/
 *.elc
 

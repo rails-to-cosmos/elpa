@@ -1,6 +1,7 @@
 # rails-to-cosmos ELPA
 
-Personal Emacs package archive. [Browse published versions](https://rails-to-cosmos.github.io/elpa/).
+Personal Emacs package archive. A scheduled job checks for upstream changes
+and publishes updates automatically. [Browse published versions](https://rails-to-cosmos.github.io/elpa/).
 
 ## Install
 
@@ -41,12 +42,13 @@ Emacs sorts the old timestamps above the new versions.
 
 ## Build locally
 
-Run these from the `elpa` checkout with Eask and Emacs installed.
+Run these from the `elpa` checkout with uv, Eask, and Emacs installed.
+uv provisions the Python version pinned in `.python-version`.
 
 ```sh
 make build    # Build the archive into docs/
 make update   # Fetch fresh sources and rebuild
-make serve    # Build and serve at http://localhost:8080 (requires Python 3)
+make serve    # Build and serve at http://localhost:8080
 ```
 
 ## Add a package and publish
@@ -67,39 +69,29 @@ against [`docs/release-digests.json`](docs/release-digests.json).
 
 ## Install from a component checkout
 
-From `elpa`, with a sibling `org-glance` checkout, Python 3.9+, and Emacs 29.1+:
+Run these from a component checkout such as `org-glance`. Set `ELPA_TOOLS` to
+the absolute path to your ELPA checkout. Requires uv and Emacs 29.1+.
 
 ```sh
-make -C ../org-glance package        # Build tarballs into dist/packages/
-make -C ../org-glance install-emacs  # Install into ~/.emacs.d by default
-make -C ../org-glance check-emacs    # Check installed packages against build receipts
-make -C ../org-glance install-emacs DEV=1 EMACS_CONFIG=/path/to/test-profile
+export ELPA_TOOLS="/path/to/elpa"
+make package        # Build tarballs into dist/packages/
+make install-emacs  # Install into ~/.emacs.d by default
+make check-emacs    # Check installed packages against build receipts
+make install-emacs DEV=1 EMACS_CONFIG=/path/to/test-profile
 ```
 
-Set `ELPA_TOOLS` for an ELPA checkout elsewhere and `EMACS` to select the
-executable. The profile can supply `scripts/package-setup.el` to set archives
-and `package-user-dir`.
+Set `EMACS` to select the executable. The profile can supply
+`scripts/package-setup.el` to set archives and `package-user-dir`.
 
 Release installs require a clean checkout. Use `DEV=1` for local same-version
 changes or downgrades. The installer migrates legacy timestamp packages, saves
 replaced directories under `EMACS_CONFIG/package-backups/install-*`, and
 restores them if installation fails. Restart Emacs after installing.
 
-## Dagster
-
-[`bin/dagster-app.py`](bin/dagster-app.py) scans recipe heads and resumes
-pending publications until the push is verified. The host supplies
-`ELPA_DIR`, `DAGSTER_HOME`, the build toolchain, and a write-capable deploy key.
-Run `./bin/dagster-app.py` to scan without publishing.
-
-Builds time out after 1,800 seconds by default (`ELPA_PUBLISH_TIMEOUT_SECONDS`).
-Logs are under `DAGSTER_HOME/elpa-publish-logs/<run-id>/`. Set
-`GLANCE_NOTIFICATION_OUTBOX` to queue notifications after verified pushes.
-
 ## Test
 
 ```sh
-python3 -m unittest discover -s tests -v
+make test
 ```
 
 Set `PACKAGE_BUILD_DIR` to a `package-build` checkout and, if needed, `COMPAT_DIR`

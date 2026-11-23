@@ -50,7 +50,8 @@
       (rce-run "git" "clone" "--branch" branch (concat "https://github.com/" repo ".git") checkout))
     (rce-run "git" "-C" checkout "fetch" "origin" branch)
     (rce-run "git" "-C" checkout "checkout" "--detach" (concat "origin/" branch))
-    (rce-run "python3" (expand-file-name "bin/packages.py" rce/root)
+    (rce-run "uv" "run" "--project" rce/root "--locked" "--managed-python"
+             (expand-file-name "bin/packages.py" rce/root)
              "build" "--source" checkout "--package" name
              "--output" package-build-archive-dir "--emacs" emacs "--publish")))
 

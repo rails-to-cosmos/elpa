@@ -2,7 +2,7 @@ EMACS ?= emacs
 EMACS_CONFIG ?= $(HOME)/.emacs.d
 ELPA_TOOLS ?= $(abspath ../elpa)
 PACKAGE_OUTPUT ?= $(CURDIR)/dist/packages
-ELPA_PACKAGE_TOOL = uv run --project "$(ELPA_TOOLS)" --locked --managed-python "$(ELPA_TOOLS)/bin/packages.py"
+ELPA_PACKAGE_TOOL = env -u VIRTUAL_ENV uv run --project "$(ELPA_TOOLS)" --locked --managed-python "$(ELPA_TOOLS)/bin/packages.py"
 
 .PHONY: package install-emacs check-emacs
 package:
